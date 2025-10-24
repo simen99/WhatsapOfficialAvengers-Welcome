@@ -1,3 +1,4 @@
+import P from 'pino'
 import makeWASocket, { useMultiFileAuthState } from '@adiwajshing/baileys'
 import { Boom } from '@hapi/boom'
 import fs from 'fs'
