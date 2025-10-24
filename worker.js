@@ -41,8 +41,14 @@ setInterval(() => {
 }, 6 * 3600 * 1000)
 
 async function start() {
-  const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR)
-  const sock = makeWASocket({
+  import makeWASocket, { useMultiFileAuthState, makeInMemoryStore } from '@adiwajshing/baileys'
+import P from 'pino'
+
+// ...
+
+const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR)
+const sock = makeWASocket({
+  logger: P({ level: 'silent' }), // ← ini baris penting fix error
   auth: state,
   printQRInTerminal: true,
   browser: ['auto-welcome-worker', os.hostname(), '1.0.0']
