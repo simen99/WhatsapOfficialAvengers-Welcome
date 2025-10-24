@@ -49,7 +49,7 @@ import P from 'pino'
 
 const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR)
 const sock = makeWASocket({
-  logger: P({ level: 'silent' }), // ← ini baris penting fix error
+  logger: P({ level: 'silent' }), // ✅ perbaikan penting
   auth: state,
   printQRInTerminal: true,
   browser: ['auto-welcome-worker', os.hostname(), '1.0.0']
