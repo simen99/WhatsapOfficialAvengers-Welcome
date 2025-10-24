@@ -1,0 +1,12 @@
+{
+  "name": "wa-autowelcome-worker",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node worker.js"
+  },
+  "dependencies": {
+    "@adiwajshing/baileys": "^5.0.0",
+    "@hapi/boom": "^10.0.0"
+  }
+}
