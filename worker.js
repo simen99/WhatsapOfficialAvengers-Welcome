@@ -62,25 +62,29 @@ setInterval(() => {
 async function start() {
   const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR);
 
-  const sock = makeWASocket({
-    logger: P({ level: "silent" }),
-    auth: state,
-    printQRInTerminal: true,
-    browser: ["Auto-Welcome", os.hostname(), "1.0.0"],
-  });
+  import qrcode from "qrcode-terminal"
 
-  sock.ev.on("creds.update", saveCreds);
+const sock = makeWASocket({
+  logger: P({ level: "silent" }),
+  auth: state,
+  browser: ["Auto-Welcome", os.hostname(), "1.0.0"],
+})
 
-  sock.ev.on("connection.update", (update) => {
-    const { connection, lastDisconnect } = update;
-    if (connection === "close") {
-      const code = new Boom(lastDisconnect?.error)?.output?.statusCode;
-      console.log("❌ Connection closed, code:", code);
-      if (code !== 401) setTimeout(() => start().catch(console.error), 3000);
-    } else if (connection === "open") {
-      console.log("✅ WhatsApp connected and running!");
-    }
-  });
+// tampilkan QR di terminal manual
+sock.ev.on("connection.update", (update) => {
+  const { connection, lastDisconnect, qr } = update
+  if (qr) {
+    console.clear()
+    console.log("📱 Scan QR Code di bawah ini untuk konek WhatsApp:")
+    qrcode.generate(qr, { small: true })
+  }
+  if (connection === "open") console.log("✅ WhatsApp connected and running!")
+  else if (connection === "close") {
+    const code = new Boom(lastDisconnect?.error)?.output?.statusCode
+    console.log("❌ Connection closed, code:", code)
+    if (code !== 401) setTimeout(() => start().catch(console.error), 3000)
+  }
+})
 
   sock.ev.on("messages.upsert", async (msgUpdate) => {
     if (!msgUpdate.messages) return;
