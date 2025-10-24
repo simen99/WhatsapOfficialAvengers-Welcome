@@ -43,11 +43,12 @@ setInterval(() => {
 async function start() {
   const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR)
   const sock = makeWASocket.default({
-    auth: state,
-    printQRInTerminal: true,
-    logger: undefined,
-    browser: ['auto-welcome-worker', os.hostname(), '1.0.0']
-  })
+  auth: state,
+  printQRInTerminal: true,
+  // hilangkan logger lama dan ganti 1 baris ini saja
+  logger: undefined,
+  browser: ["Chrome (Linux)", "Chrome", "110.0.0.0"]
+})
   sock.ev.on('creds.update', saveCreds)
   sock.ev.on('connection.update', (u) => {
     const { connection, lastDisconnect } = u
