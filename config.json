@@ -1,0 +1,7 @@
+{
+  "welcomeText": "Halo 👋, terima kasih sudah menghubungi. Admin akan segera membalas.",
+  "welcomeIntervalHours": 6,
+  "rateLimitPerMinute": 30,
+  "dbFile": "db.json",
+  "authFolder": "auth"
+}
