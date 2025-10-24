@@ -45,7 +45,7 @@ async function start() {
   const sock = makeWASocket.default({
     auth: state,
     printQRInTerminal: true,
-    logger: { level: 'error' },
+    logger: undefined,
     browser: ['auto-welcome-worker', os.hostname(), '1.0.0']
   })
   sock.ev.on('creds.update', saveCreds)
