@@ -42,7 +42,7 @@ setInterval(() => {
 
 async function start() {
   const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR)
-  const sock = makeWASocket.default({
+  const sock = makeWASocket({
   auth: state,
   printQRInTerminal: true,
   browser: ['auto-welcome-worker', os.hostname(), '1.0.0']
