@@ -45,9 +45,7 @@ async function start() {
   const sock = makeWASocket.default({
   auth: state,
   printQRInTerminal: true,
-  // hilangkan logger lama dan ganti 1 baris ini saja
-  logger: undefined,
-  browser: ["Chrome (Linux)", "Chrome", "110.0.0.0"]
+  browser: ['auto-welcome-worker', os.hostname(), '1.0.0']
 })
   sock.ev.on('creds.update', saveCreds)
   sock.ev.on('connection.update', (u) => {
